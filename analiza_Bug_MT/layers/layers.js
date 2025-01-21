@@ -24,6 +24,39 @@ var wms_layers = [];
                 url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
             })
         });
+
+
+        var lyr_wody_pow = new ol.layer.Tile({
+            source: new ol.source.TileWMS(({
+              url: "https://wody.isok.gov.pl/gpservices/KZGW/MZP20_Predkosc_WysokiePrawdopodPowodzi/MapServer/WMSServer",
+              attributions: 'Gugik',
+              params: {
+                "LAYERS": "5",
+                "TILED": "true",
+                "VERSION": "1.3.0"},
+            })),
+            title: 'wody powierzchniowe',
+            opacity: 1.000000,
+
+          });
+wms_layers.push([lyr_zagrożenie_pow, 0]);
+
+var lyr_zagrożenie_pow = new ol.layer.Tile({
+    source: new ol.source.TileWMS(({
+      url: "https://wody.isok.gov.pl/gpservices/KZGW/MZP20_Predkosc_WysokiePrawdopodPowodzi/MapServer/WMSServer",
+      attributions: 'Gugik',
+      params: {
+        "LAYERS": "2",
+        "TILED": "true",
+        "VERSION": "1.3.0"},
+    })),
+    title: 'zagrożenie powodziowe',
+    opacity: 1.000000,
+
+  });
+wms_layers.push([lyr_zagrożenie_pow, 0]);
+
+
 var format_AnalizaVMAPSentinel_2 = new ol.format.GeoJSON();
 var features_AnalizaVMAPSentinel_2 = format_AnalizaVMAPSentinel_2.readFeatures(json_AnalizaVMAPSentinel_2, 
             {dataProjection: 'EPSG:4326', featureProjection: 'EPSG:3857'});
@@ -110,8 +143,27 @@ var lyr_Historycznatopograficzna1940_6 = new ol.layer.Vector({
                 title: '<img src="styles/legend/Historycznatopograficzna1940_6.png" /> Historyczna topograficzna 1940'
             });
 
-lyr_OSMwhite_0.setVisible(false);lyr_GoogleSatellite_1.setVisible(true);lyr_AnalizaVMAPSentinel_2.setVisible(false);lyr_AnalizahistorycznaVMAP_3.setVisible(false);lyr_VMAP2002_4.setVisible(true);lyr_Sentinel2024_5.setVisible(true);lyr_Historycznatopograficzna1940_6.setVisible(true);
-var layersList = [lyr_OSMwhite_0,lyr_GoogleSatellite_1,lyr_AnalizaVMAPSentinel_2,lyr_AnalizahistorycznaVMAP_3,lyr_VMAP2002_4,lyr_Sentinel2024_5,lyr_Historycznatopograficzna1940_6];
+lyr_OSMwhite_0.setVisible(false);
+lyr_GoogleSatellite_1.setVisible(true);
+lyr_AnalizaVMAPSentinel_2.setVisible(false);
+lyr_AnalizahistorycznaVMAP_3.setVisible(false);
+lyr_VMAP2002_4.setVisible(true);
+lyr_Sentinel2024_5.setVisible(true);
+lyr_Historycznatopograficzna1940_6.setVisible(true);
+lyr_wody_pow.setVisible(true);
+lyr_zagrożenie_pow.setVisible(true);
+
+var layersList = [
+    lyr_OSMwhite_0,
+    lyr_GoogleSatellite_1,
+    lyr_wody_pow,
+    lyr_zagrożenie_pow,
+    lyr_AnalizaVMAPSentinel_2,
+    lyr_AnalizahistorycznaVMAP_3,
+    lyr_VMAP2002_4,
+    lyr_Sentinel2024_5,
+    lyr_Historycznatopograficzna1940_6];
+
 lyr_AnalizaVMAPSentinel_2.set('fieldAliases', {'Shape_Leng': 'Shape_Leng', 'Shape_Area': 'Shape_Area', 'GRID_ID': 'GRID_ID', 'procent_hi': 'procent_hi', 'procent_vm': 'procent_vm', 'procent_se': 'procent_se', 'hist_vmap': 'hist_vmap', 'vmap_senti': 'vmap_senti', 'hist_senti': 'hist_senti', });
 lyr_AnalizahistorycznaVMAP_3.set('fieldAliases', {'Shape_Leng': 'Shape_Leng', 'Shape_Area': 'Shape_Area', 'GRID_ID': 'GRID_ID', 'procent_hi': 'procent_hi', 'procent_vm': 'procent_vm', 'procent_se': 'procent_se', 'hist_vmap': 'hist_vmap', 'vmap_senti': 'vmap_senti', 'hist_senti': 'hist_senti', });
 lyr_VMAP2002_4.set('fieldAliases', {'DLUG_BRZEG': 'DLUG_BRZEG', 'DLUGOSC': 'DLUGOSC', 'DOKLADNOSC': 'DOKLADNOSC', 'DOSTEPNOSC': 'DOSTEPNOSC', 'GLEBOKOSC': 'GLEBOKOSC', 'ISTNIENIE': 'ISTNIENIE', 'KAT_HYDRO': 'KAT_HYDRO', 'KAT_PLYWU': 'KAT_PLYWU', 'KAT_POJEMN': 'KAT_POJEMN', 'KAT_POLOZ': 'KAT_POLOZ', 'KAT_WODY': 'KAT_WODY', 'NAJW_WYS': 'NAJW_WYS', 'NAZWA': 'NAZWA', 'OBIEKT': 'OBIEKT', 'OPR_UPUST': 'OPR_UPUST', 'OPR_ZBURZ': 'OPR_ZBURZ', 'POCH_HYDRO': 'POCH_HYDRO', 'PRED_PRZEP': 'PRED_PRZEP', 'SREDNIA_GL': 'SREDNIA_GL', 'STAT_EKSPL': 'STAT_EKSPL', 'SZEROKOSC': 'SZEROKOSC', 'TAJNOSC': 'TAJNOSC', 'TYP_AKWED': 'TYP_AKWED', 'TYP_WYBRZ': 'TYP_WYBRZ', 'ZN_ORIENT': 'ZN_ORIENT', 'POWIERZCHN': 'POWIERZCHN', 'ID': 'ID', 'Shape_Leng': 'Shape_Leng', 'Shape_Area': 'Shape_Area', 'pow': 'pow', 'obw': 'obw', 'wsp_zw': 'wsp_zw', });
